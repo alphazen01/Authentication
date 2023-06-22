@@ -6,6 +6,7 @@ import 'package:authentication/models/login_model.dart';
 import 'package:authentication/utils/constants/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/response_model.dart';
 import '../models/sign_up_body.dart';
@@ -13,6 +14,7 @@ import '../models/sign_up_body.dart';
 
 
 class Controller extends ChangeNotifier{
+  // final SharedPreferences sharedPreferences;
 
 bool _isLoading = false;
 

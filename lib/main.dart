@@ -1,19 +1,31 @@
 
-import 'package:authentication/controller/auth_controller.dart';
+
+import 'package:authentication/account_page/account_page.dart';
+import 'package:authentication/controller/user_controller.dart';
 import 'package:authentication/view/auth_page/login_screen.dart';
 import 'package:authentication/view/home/home.dart';
 import 'package:authentication/view/auth_page/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'controller/controller.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+ var email = prefs.getString('email');
+  runApp( MyApp(email: email,));
+}
+   Future init()async{
+  WidgetsFlutterBinding.ensureInitialized();
+ 
+
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final String? email;
+  const MyApp({Key? key,this.email}) : super(key: key);
 
 
   @override
@@ -27,29 +39,29 @@ class MyApp extends StatelessWidget {
         );
       }
          ),
+         ChangeNotifierProvider<UserController>(
+      create: (BuildContext context){
+        return UserController(
+          
+        );
+      }
+         ),
      
       ],
-      child: CustomApp(),
-      );
-      
-     
-  }
-  
-}
-class CustomApp extends StatelessWidget {
-  const CustomApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+      child:MaterialApp(
       
       title: 'Flutter Demo',
       theme: ThemeData(
       
         primarySwatch: Colors.blue,
       ),
-      home: LogInScreen()
-    );
+      home: email==null?LogInScreen():HomePage()
+    )
+      );
+      
+     
   }
+  
 }
+
 
