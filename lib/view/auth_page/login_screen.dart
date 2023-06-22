@@ -8,6 +8,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../controller/controller.dart';
 import '../../utils/widgets/big_text/big_text.dart';
@@ -74,7 +75,9 @@ class LogInScreen extends StatelessWidget {
                   SizedBox(height: 20,),
                   //signup button
                   InkWell(
-                    onTap: (){
+                    onTap: ()async{
+                      SharedPreferences pref = await SharedPreferences.getInstance();
+                      pref.setString("email", "useremail@gmail.com");
                       if (emailController.text.isEmpty) {
                      Fluttertoast.showToast(msg: "Enter your email");
                     } else if (passwordController.text.isEmpty) {
